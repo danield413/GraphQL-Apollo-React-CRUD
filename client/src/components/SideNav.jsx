@@ -12,7 +12,7 @@ const pages = {
 const SideBar = styled.aside`
     position: absolute;
     height: 100vh;
-    width: 16rem;
+    width: 18rem;
     background-color: black;
     z-index: 99;
     left: ${props => props.isOpen ? "0" : "-100%"};
@@ -57,10 +57,11 @@ const SideBar = styled.aside`
     & .main {
         & h3 {
             margin-left: 10px;
+            margin-bottom: 10px;
             color: #fff;
         }
         & ul li .btn {
-            margin: 10px auto;
+            margin: 0 auto;
             display: block;
             width: 100%;
             height: 3rem;
