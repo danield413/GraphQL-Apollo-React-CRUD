@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { gql, useMutation } from '@apollo/client';
 import toast from 'react-hot-toast'
 import styled from 'styled-components'
 import useForm from '../hooks/UseForm'
-
 
 const FormS = styled.form`
     width: 22rem;
@@ -104,26 +104,72 @@ margin-right: 10px;
 }
 `
 
-const Form = ( {inputs, formTitle, products = null, submitFunction = null} ) => {
-    const [ state, handleChange, reset ] = useForm();
+const NEW_PRODUCT = gql`
+    mutation NuevoProductoMutation($input: NuevoProductoInput) {
+  nuevoProducto(input: $input) {
+    nombre
+    precio
+    disponible
+    id
+  }
+}
+`
 
-    const handleSubmit = (e) => {
+const Form = ( {inputs, formTitle, products = null, submitFunction = null} ) => {
+    const [ state, handleChange ] = useForm();
+    const [ nuevoProducto ] = useMutation(NEW_PRODUCT);
+    const formRef = useRef()
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         let count = 0;
         for( const val in state){
             if(val) count++;
         }
         if(count >= inputs.length){
-            toast.success('Bien hecho!');
-            if(submitFunction) submitFunction();
-            reset();
+
+            if(submitFunction) {
+                const validation = submitFunction( state );
+
+                if( validation ) {
+                    
+                    //si hay productos es una orden, sino es un producto
+                    if(products) {
+                        
+                    } else {
+                        const { nombre, precio, disponible } = state;
+                        const inputObj = {
+                            nombre, 
+                            precio: Number(precio),
+                             disponible: (disponible.toLowerCase() === 'true')
+                        }
+                        try{
+                            formRef.current.reset();
+                            toast.promise(nuevoProducto({
+                                variables: {
+                                    input: inputObj
+                                }
+                            }), {
+                                loading: 'Cargando...',
+                                success: 'Nuevo producto añadido!',
+                                error: 'UPS... Hubo un error'
+                            })
+                            
+                        } catch(err) {
+                            console.log(err)
+                        }
+                    }
+
+                }
+            }
+
         } else {
             toast.error('Faltan campos');
         }
     }
 
     return (
-        <FormS onSubmit={handleSubmit} autoComplete="off">
+        <FormS onSubmit={handleSubmit} autoComplete="off" ref={formRef}>
             <h2>{formTitle}</h2>
             {inputs.map( ({ id, type, placeholder, name, radioValues }) => {
                 if( type === 'radio' && radioValues.length > 1 ){
