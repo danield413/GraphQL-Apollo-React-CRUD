@@ -116,10 +116,8 @@ const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
                         }
                         reset();
                     }
-
                 }
             }
-
         } else {
             toast.error('Faltan campos');
         }
