@@ -31,7 +31,7 @@ const NewProduct = () => {
                 <title>Nuevo Producto - ReactGraphQL</title>
             </Helmet>
             <FormWrapper isFlex={true}>
-                <Form inputs={ inputs } formTitle="Nuevo Producto" submitFunction={validateProduct}/>
+                <Form inputs={ inputs } formTitle="Nuevo Producto" submitFunction={validateProduct} products={false}/>
             </FormWrapper>
         </>
     )

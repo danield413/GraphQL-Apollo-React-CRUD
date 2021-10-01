@@ -26,7 +26,7 @@ const NewOrder = () => {
                 <title>Nueva Orden - ReactGraphQL</title>
             </Helmet>
             <FormWrapper isFlex={true}>
-                <Form inputs={ inputs } formTitle="Nueva Orden" submitFunction={validateOrder}/>
+                <Form inputs={ inputs } formTitle="Nueva Orden" submitFunction={validateOrder} products={true}/>
             </FormWrapper>
         </>
     )

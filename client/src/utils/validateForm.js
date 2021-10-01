@@ -22,5 +22,21 @@ export const validateProduct = ( values ) => {
 }
 
 export const validateOrder = ( values ) => {
-    console.log('order');
+    let { mesa, nombreUsuario, orden } = values;
+
+    let errors = 0
+    if(mesa === 0) {
+        toast('Selecciona una mesa diferente a la 0', { icon: '❗' })
+        errors++;
+    }
+    if(nombreUsuario.length < 5) {
+        toast('El nombre del usuario debe llevar minimo 5 letras', { icon: '❗' })
+        errors++;
+    }
+    if(orden.length === 0){
+        toast('La orden debe tener almenos 1 producto', { icon: '❗' })
+        errors++;
+    }
+
+    if(errors <= 0) { return true } else { return false }
 }

@@ -106,18 +106,38 @@ margin-right: 10px;
 
 const NEW_PRODUCT = gql`
     mutation NuevoProductoMutation($input: NuevoProductoInput) {
-  nuevoProducto(input: $input) {
-    nombre
-    precio
-    disponible
-    id
-  }
+    nuevoProducto(input: $input) {
+        nombre
+        precio
+        disponible
+        id
+    }
 }
 `
 
-const Form = ( {inputs, formTitle, products = null, submitFunction = null} ) => {
-    const [ state, handleChange ] = useForm();
+const NEW_ORDER = gql`
+    mutation NuevaOrdenMutation($input: NuevaOrdenInput) {
+    nuevaOrden(input: $input) {
+        id
+        usuario
+        mesa
+        orden {
+            cantidad
+            nombre
+            precio
+            disponible
+        }
+        estado
+        fecha
+        total
+    }
+}
+`
+
+const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
+    const [ state, handleChange, reset ] = useForm();
     const [ nuevoProducto ] = useMutation(NEW_PRODUCT);
+    const [ nuevaOrden ] = useMutation(NEW_ORDER); 
     const formRef = useRef()
 
     const handleSubmit = async (e) => {
@@ -129,13 +149,49 @@ const Form = ( {inputs, formTitle, products = null, submitFunction = null} ) => 
         if(count >= inputs.length){
 
             if(submitFunction) {
-                const validation = submitFunction( state );
+                //Orden de prueba
+                const orden = [
+                    {
+                        id: "123123123",
+                        nombre: "Burrito",
+                        cantidad: 1,
+                        precio: 2500
+                    },
+                    {
+                        id: "123123123AAAA",
+                        nombre: "HotDog",
+                        cantidad: 3,
+                        precio: 5000
+                    }
+                ]
+                const validation = products ? submitFunction( {...state, orden} ) : submitFunction( state ) 
 
                 if( validation ) {
-                    
-                    //si hay productos es una orden, sino es un producto
+                    //si hay productos es es true es orden, false producto
                     if(products) {
-                        
+                        const { mesa, nombreUsuario } = state;
+                        const inputObj = {
+                            usuario: nombreUsuario,
+                            mesa: Number(mesa),
+                            orden
+                        }
+
+                        try {
+                            formRef.current.reset();
+                            const resp = toast.promise(nuevaOrden({
+                                variables: {
+                                    input: inputObj
+                                }
+                            }), {
+                                loading: 'Cargando...',
+                                success: 'Nuevo orden creada!',
+                                error: 'UPS... Hubo un error'
+                            });
+                            resp.then( ({ data }) => console.log(data.nuevaOrden) );
+                        } catch (err) {
+                            console.log(err)
+                        }
+                        reset();
                     } else {
                         const { nombre, precio, disponible } = state;
                         const inputObj = {
@@ -145,7 +201,7 @@ const Form = ( {inputs, formTitle, products = null, submitFunction = null} ) => 
                         }
                         try{
                             formRef.current.reset();
-                            toast.promise(nuevoProducto({
+                            const resp = toast.promise(nuevoProducto({
                                 variables: {
                                     input: inputObj
                                 }
@@ -153,11 +209,12 @@ const Form = ( {inputs, formTitle, products = null, submitFunction = null} ) => 
                                 loading: 'Cargando...',
                                 success: 'Nuevo producto añadido!',
                                 error: 'UPS... Hubo un error'
-                            })
-                            
+                            });
+                            resp.then( ({ data }) => console.log(data.nuevoProducto) );
                         } catch(err) {
                             console.log(err)
                         }
+                        reset();
                     }
 
                 }

@@ -96,6 +96,7 @@ const resolvers = {
             }
         },
         nuevaOrden : async (_, {input}) => {
+            console.log(input)
             try {
                 let nuevaOrden = input;
 
