@@ -30,22 +30,24 @@ export const NavBar = styled.nav`
         padding: 4px 10px;
         background-color: rgba(255,255,255,.2);
         color: #fff;
-        border-radius: 10px;
+        border-radius: 5px;
         text-decoration: none;
         display: flex;
         align-items: center;
         font-weight: 400;
         transition: all 1s;
+        font-family: 'GT-L';
+
         & svg {
             margin-right: .4rem;
         }
         :hover {
-            background-color: rgba(0, 162, 255, 0.5);
+            background-color: #00d9ff96;
         }
     }
 
     & .active {
-        background-color: rgba(0, 162, 255, 0.5);
+        background-color: #00d9ff75;
     }
 
     & ul li button {

@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async"
+import PageWrapper from "../../components/PageWrapper"
 
 const Orders = () => {
 
@@ -7,7 +8,9 @@ const Orders = () => {
             <Helmet>
                 <title>Ordenes - ReactGraphQL</title>
             </Helmet>
-            ordenes
+            <PageWrapper title="Ordenes">
+                
+            </PageWrapper>
         </>
     )
 }

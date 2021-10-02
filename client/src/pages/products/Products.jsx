@@ -1,10 +1,150 @@
 import React from 'react'
+import PageWrapper from '../../components/PageWrapper'
+import { useQuery, gql } from '@apollo/client'
+import Spinner from '../../components/Spinner'
+import styled from 'styled-components'
+import { GrStatusGoodSmall } from 'react-icons/gr'
+import { AiFillEdit } from 'react-icons/ai'
+import { FaExchangeAlt } from 'react-icons/fa'
+
+export const GET_PRODUCTS = gql`
+    query Query {
+        obtenerProductos {
+            id,
+            nombre,
+            precio,
+            disponible
+        }
+    }
+`
+
+const Container = styled.div`
+    margin-top: 10px;
+    height: calc(100vh - 80px - 25%);
+    padding: 20px 0;
+    background-color: #333333;
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 20px;
+    overflow: auto;
+`
+
+const Product = styled.div`
+    width: 90%;
+    height: 150px;
+    padding: 20px;
+    background-color: #1f1f1f;
+    border-radius: 16px;
+    margin: 0 auto;
+    transition: .3s ease-in-out;
+    position: relative;
+    
+    .header {
+        display: grid;
+        grid-template-columns: 90% 10%;
+        h3 {
+            color: #00afce;
+            font-weight: bold;
+        }
+        .status {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            svg {
+                fill: ${(props) => props.disponible ? '#00FFA2' : '#ff006a'};
+            }
+        }
+    }
+
+    h4 {
+        color: #fff;
+    }
+
+    .actions {
+        width: 9rem;
+        height: 3.5rem;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+
+        div button {
+            position: relative;
+            height: 40px;
+            width: 40px;
+            border: none;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, .3);
+            cursor: pointer;
+            margin-right: 10px;
+            transition: .3s ease-in-out;
+            display: grid;
+            place-content: center;
+            svg {
+                fill: white;
+            }
+
+            span {
+                position: absolute;
+                display: none;
+                padding: 3px;
+                background-color: #444444;
+                border-radius: 10px;
+                color: white;
+                font-family: 'GT-L';
+                width: 100px;
+                top: calc(100% + 5px);
+                transition: .2s ease-in-out;
+            }
+            
+            &:hover span {
+                display: block;
+            }
+            &:hover{
+                background-color: #00d9ff75;
+                filter: drop-shadow(0px 0px 4px #00d9ff);
+            }
+        }
+    }
+
+    &:hover {
+        transform: scale(1.03);
+    }
+`
 
 const Products = () => {
+
+    const { loading, error, data } = useQuery(GET_PRODUCTS, {
+        fetchPolicy:  "cache-first",
+    });
+
     return (
-        <div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos eius possimus dolorem, cupiditate debitis quasi beatae quae voluptatibus modi, est ullam aspernatur voluptate! Quas minima, voluptates quod porro quidem aut sapiente voluptatum recusandae laudantium, nostrum est, repellendus iusto non sunt ullam ducimus! Non veniam molestias dolore dicta voluptatibus dolorum quae nemo ad quas iste, architecto voluptate libero repellat? Doloremque labore fuga facilis, necessitatibus perspiciatis similique sed laborum commodi quasi aspernatur mollitia repudiandae culpa harum sapiente est accusantium adipisci incidunt eos placeat delectus consectetur impedit omnis? Dolorem dolor ad maxime ipsum provident ducimus, itaque officia quo. Aperiam ex mollitia, molestias recusandae iste excepturi provident rem commodi unde corporis eaque. Totam sunt reprehenderit, ducimus deleniti enim impedit quam nam. Eum, obcaecati repellendus. Soluta necessitatibus temporibus autem fugiat. Reiciendis id unde nisi. Dolor et neque aliquam animi, perferendis sit quia illum quisquam in, libero, perspiciatis sunt quod alias doloremque tempore ullam nulla? Aperiam laudantium vero ipsam repellendus corporis recusandae nobis. Ratione inventore repellendus voluptatibus vero cupiditate voluptatum consectetur minima quisquam nesciunt natus laudantium aliquid ex minus, dicta modi incidunt dolore soluta eius dolorum nobis! Hic amet enim reiciendis aspernatur? Nisi ducimus assumenda in saepe! Amet corrupti ratione similique, quibusdam molestiae hic eos quas enim quisquam! Laudantium impedit consectetur iste laboriosam fugit magnam incidunt in reprehenderit repudiandae optio unde vel dicta animi, atque enim quaerat officia! Minus blanditiis repellat illum ab totam magni inventore voluptates dolor quaerat vitae, officiis incidunt architecto eaque consequuntur maiores obcaecati molestiae accusamus eius asperiores non quibusdam culpa facere placeat aperiam. Expedita in optio animi, deserunt commodi minima dolor quas architecto doloribus ea rem sint id nam at veritatis cum ratione iusto harum sapiente eveniet magni blanditiis magnam! Culpa doloribus beatae id laboriosam magni earum tempore. Sapiente sed repellat in? Laborum omnis officia asperiores, molestiae atque sapiente laboriosam in accusantium itaque aliquid ipsam, sint magni. At eos culpa aliquid harum autem numquam praesentium necessitatibus, quae magni sequi, nobis, asperiores error voluptatem aliquam non quas minima fuga cumque consequuntur? Nemo distinctio ab in labore commodi voluptatum nisi totam assumenda dolorem dolore enim doloremque, cum ex, accusantium ipsam consequatur nulla ad cupiditate? Doloremque voluptates harum nemo non nobis molestiae nihil at ipsum necessitatibus architecto. Eum autem vitae fuga qui quo ad fugit libero modi est voluptatibus labore debitis voluptates, nulla non facere ipsam aut sunt perferendis, repudiandae maiores officia. Necessitatibus repellat voluptatem pariatur temporibus ducimus corrupti iste maiores dolore quasi, officia quas debitis, quis commodi excepturi adipisci laborum provident soluta veniam eligendi quod. Error possimus fuga voluptatem asperiores doloremque tempora quisquam saepe quae omnis culpa expedita illo, iste unde recusandae labore. Debitis eos quos inventore autem vitae nisi ducimus accusamus laboriosam fuga sint dolore, excepturi dolor laborum, recusandae ratione quo. Porro facere nostrum consectetur libero modi? Consectetur quo quos quaerat, ratione adipisci consequatur nam eligendi minus debitis ipsum? Inventore culpa aliquid doloribus necessitatibus, perferendis ipsum! Adipisci beatae voluptatum odio eligendi accusamus ea quo hic sapiente iure. Tempora, ab, voluptatum repellendus molestiae sequi odit distinctio officia quos asperiores dolor dolorem minima repudiandae voluptatem vel ut non eligendi sapiente veniam perferendis quod deleniti suscipit impedit labore? Ex laboriosam doloribus molestias facilis tenetur consectetur velit quaerat est dolorum! Aspernatur eum amet quibusdam impedit necessitatibus nulla. Error mollitia aperiam magni autem ea sed corporis vero tenetur vel omnis soluta explicabo excepturi, nobis deserunt laborum obcaecati eveniet? Reiciendis perferendis numquam corrupti debitis placeat nihil? Laudantium iste, ipsam corporis vel quae placeat consequatur debitis, consequuntur eveniet autem possimus, quidem unde! Harum rerum voluptatibus, explicabo dolores quas similique voluptatem consectetur sapiente tenetur iusto odio sit reiciendis officiis atque ipsum minima consequatur nemo aperiam cum illo ut quis nam. Beatae consectetur, qui nisi, animi placeat consequuntur similique rem labore fuga repellat esse eius quaerat minus, accusamus id sapiente. Praesentium, reprehenderit itaque laudantium suscipit soluta eum necessitatibus sit, nobis, id unde quam porro? Odio libero illum, saepe molestias adipisci quidem similique dignissimos eligendi dolore ullam dolorum veritatis cumque deleniti repudiandae perferendis assumenda, asperiores nihil tenetur! Debitis vel voluptates ex quidem voluptatibus nobis facere repellendus repellat, quasi facilis porro totam voluptatem laborum accusamus est at officia enim eaque rem aspernatur! Culpa consequatur, magni, blanditiis facere laborum tempore fuga quibusdam magnam dolore assumenda eius quidem sit excepturi amet maxime impedit nihil et officiis est. Aspernatur, eveniet assumenda molestiae labore asperiores numquam ipsam reprehenderit corporis, sapiente et pariatur ut ipsum! Sequi commodi consequuntur aperiam perspiciatis inventore maxime expedita. Ipsa sit neque deserunt est iusto minus consectetur optio sunt vitae quo, esse magnam cupiditate error voluptatem fugiat illum consequuntur architecto molestiae dolor minima. Reiciendis explicabo commodi labore porro tempora asperiores qui nulla, magnam sint accusamus velit similique sed perferendis! Aut doloremque nobis corrupti harum autem eaque nisi nemo molestiae molestias esse natus, nulla provident? Odio nulla provident inventore accusantium quod assumenda? Officiis optio quod est illo corporis perspiciatis cumque quis architecto dolore debitis incidunt, dolorum rerum itaque? Suscipit enim numquam aut laudantium aliquam? Non asperiores accusamus atque suscipit at odit dolorum iste quisquam magnam ad autem voluptate, necessitatibus corporis, in eum dolorem itaque repudiandae vel nemo minima saepe porro ipsum maxime? Perspiciatis autem ad quas ipsum amet rem. Totam eum enim sint ea dicta nulla incidunt corporis sequi cum quo repellendus doloribus quaerat ipsam ullam quam officia non quisquam, quis reiciendis? Recusandae sunt praesentium numquam voluptas hic magni tempora natus consequatur eos ipsa quae ut porro quis totam, doloremque, iure perspiciatis laborum omnis fuga similique exercitationem voluptatem! Corporis unde ipsa obcaecati vel veniam saepe ducimus hic culpa magnam eum quaerat dignissimos nam voluptatum atque animi illum blanditiis incidunt, ab repellat aut dicta nesciunt amet ad doloribus. Suscipit, sequi, voluptatibus maxime, obcaecati magnam beatae expedita explicabo autem provident possimus ducimus quas. Nostrum praesentium blanditiis necessitatibus saepe soluta nulla eos repellendus facere voluptate tenetur consequatur labore facilis dicta cupiditate dolores quaerat ullam quo, non numquam hic nesciunt. Earum reprehenderit incidunt quod consequuntur adipisci, perferendis ut! Nisi omnis et iure minus ratione ullam, id quis vitae in quo consequatur pariatur culpa laborum impedit maxime amet animi expedita dolorum sint quidem nihil eveniet, sunt totam? Accusantium error eaque soluta.
-        </div>
+        <PageWrapper title="Productos" count={data && data.obtenerProductos.length}>
+            {
+                loading && 
+                <Spinner />
+            }
+            <Container>
+                {
+                    data && data.obtenerProductos.map( ({id, nombre, precio, disponible}) => (
+                        <Product key={id} disponible={disponible}>
+                            <div className="header">
+                                <div><h3 className="no-selectable">{nombre}</h3></div>
+                                <div className="status"><GrStatusGoodSmall /></div>
+                            </div>
+                            <h4 className="no-selectable">$ {precio} COP</h4>
+                            <div className="actions">
+                                <div><button><AiFillEdit size="18px"/> </button></div>
+                                <div><button><FaExchangeAlt size="18px"/> </button></div> 
+                            </div>
+                        </Product>
+                    ))
+                }
+            </Container>
+        </PageWrapper>
     )
 }
 

@@ -18,7 +18,7 @@ const resolvers = {
     Query: {
         obtenerProductos: async () => {
             try {
-                const productos = await Producto.find({ disponible: true });
+                const productos = await Producto.find();
                 return productos;
             } catch (error) {
                 console.log(error);

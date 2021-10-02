@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const FormS = styled.form`
-    width: 22rem;
+    width: 26rem;
     padding: 25px 15px;
     background-color: #202020;
     border-radius: 5px;
@@ -19,7 +19,7 @@ export const FormS = styled.form`
 export const Input = styled.input`
     margin-bottom: 20px;
     width: 100%; 
-    height: 2.2rem;
+    height: 2.5rem;
     border: 2px solid rgba(0, 134, 211, 0.4);
     border-radius: 5px;
     background-color: transparent;
@@ -27,6 +27,8 @@ export const Input = styled.input`
     outline: none;
     transition: 0.2s ease-in-out;
     color: white;
+    font-family: 'GT-L';
+    font-size: .9rem;
 
     ::placeholder {
         color: #eee;
@@ -39,7 +41,7 @@ export const Input = styled.input`
 
 export const Submit = styled.input`
     width: 100%; 
-    height: 2.2rem;
+    height: 2.5rem;
     background-color: #0084ff;
     outline: none;
     border: none;
@@ -48,6 +50,8 @@ export const Submit = styled.input`
     transition: .2s ease-in-out;
     cursor: pointer;
     font-weight: bold;
+    font-size: .9rem;
+
     :hover {
         background-color: #006cd1;
     }
@@ -58,11 +62,12 @@ export const Submit = styled.input`
 `
 
 export const LabelContainer = styled.div`
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     & label {
         display: inline;
         color: white;
-        font-size: 0.9rem;
+        font-size: .9rem;
+        font-family: 'GT-L';
     }
 `
 

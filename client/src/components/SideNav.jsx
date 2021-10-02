@@ -73,6 +73,8 @@ const SideBar = styled.aside`
             font-weight: bold;
             color: white;
             transition: .3s ease-in-out;
+            font-family: 'GT-L';
+
             :hover {
                 background-color: #7000FF;
                 color: #fff;
@@ -83,6 +85,7 @@ const SideBar = styled.aside`
             background-color: #7000FF;
             color: #fff;
             border-left: 3px solid #fff;
+            font-family: 'GT-M';
         }
     }
 `

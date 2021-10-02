@@ -3,6 +3,7 @@ import { gql, useMutation } from '@apollo/client';
 import toast from 'react-hot-toast'
 import useForm from '../hooks/UseForm'
 import { FormS, Input, LabelContainer, Radio, Submit } from '../styled/components/Form';
+import { GET_PRODUCTS } from '../pages/products/Products';
 
 const NEW_PRODUCT = gql`
     mutation NuevoProductoMutation($input: NuevoProductoInput) {
@@ -36,7 +37,21 @@ const NEW_ORDER = gql`
 
 const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
     const [ state, handleChange, reset ] = useForm();
-    const [ nuevoProducto ] = useMutation(NEW_PRODUCT);
+    const [ nuevoProducto ] = useMutation(NEW_PRODUCT, {
+        update(cache,{ data: { nuevoProducto }} ) {
+            const { obtenerProductos } = cache.readQuery({
+                query: GET_PRODUCTS
+            });
+
+            cache.writeQuery({
+                query: GET_PRODUCTS,
+                data: {
+                    obtenerProductos: [...obtenerProductos, nuevoProducto]
+                }
+            })
+        }
+    });
+    
     const [ nuevaOrden ] = useMutation(NEW_ORDER); 
     const formRef = useRef()
 
