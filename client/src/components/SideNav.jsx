@@ -13,11 +13,11 @@ const SideBar = styled.aside`
     position: absolute;
     height: 100vh;
     width: 18rem;
-    background-color: black;
+    background-color: #141414;
     z-index: 99;
     left: ${props => props.isOpen ? "0" : "-100%"};
     
-    transition: .4s ease-in-out;
+    transition: .3s all;
     & .header {
         display: grid;
         grid-template-columns: 70% 30%;
@@ -132,7 +132,7 @@ const SideNav = ({handleClose, isOpen}) => {
                         (location === pages.orders) && 
                         <>  
                             <li onClick={handleClose} ><Link to="/orders/new" className={`btn ${pathname === '/orders/new' && 'active'}`}>Nueva Orden</Link></li>
-                            <li onClick={handleClose} ><Link to="/orders" className={`btn ${pathname === '/orders' && 'active'}`}>Ordenes pendientes</Link></li>
+                            <li onClick={handleClose} ><Link to="/orders" className={`btn ${pathname === '/orders' && 'active'}`}>Órdenes pendientes</Link></li>
                             <li onClick={handleClose} ><Link to="/orders/search" className={`btn ${pathname === '/orders/search' && 'active'}`}>Buscar orden</Link></li>
                             <li onClick={handleClose} ><Link to="/" className={`btn ${pathname === '/' && 'active'}`}>Inicio</Link></li>
                         </>

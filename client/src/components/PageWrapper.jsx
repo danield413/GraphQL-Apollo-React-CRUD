@@ -38,8 +38,8 @@ const PageWrapper = ( {children, title, count} ) => {
     return (
         <Main>
             <div className="header">
-                <div><h1>{title}</h1></div>
-                {count &&  <div className="header-item"><span>{count} {title}</span></div>}
+                <div><h1 className="no-selectable">{title}</h1></div>
+                {count &&  <div className="header-item no-selectable"><span>{count} {title}</span></div>}
             </div>
             { children }
         </Main>

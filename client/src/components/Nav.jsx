@@ -109,7 +109,7 @@ const Nav = () => {
                     <li>
                         <Link to="/orders" className={`${pathname.includes('orders') && 'active'}`}>
                             <HiOutlineLightBulb />
-                            Ordenes
+                            Órdenes
                         </Link>
                     </li>
 

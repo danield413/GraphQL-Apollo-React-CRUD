@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { GrStatusGoodSmall } from 'react-icons/gr'
 import { AiFillEdit } from 'react-icons/ai'
 import { FaExchangeAlt } from 'react-icons/fa'
+import { formatter } from '../../utils/cop'
 
 export const GET_PRODUCTS = gql`
     query Query {
@@ -57,8 +58,9 @@ const Product = styled.div`
         }
     }
 
-    h4 {
+   span {
         color: #fff;
+        font-family: 'GT-M';
     }
 
     .actions {
@@ -117,7 +119,7 @@ const Product = styled.div`
 
 const Products = () => {
 
-    const { loading, error, data } = useQuery(GET_PRODUCTS, {
+    const { loading, data } = useQuery(GET_PRODUCTS, {
         fetchPolicy:  "cache-first",
     });
 
@@ -135,7 +137,7 @@ const Products = () => {
                                 <div><h3 className="no-selectable">{nombre}</h3></div>
                                 <div className="status"><GrStatusGoodSmall /></div>
                             </div>
-                            <h4 className="no-selectable">$ {precio} COP</h4>
+                            <span className="no-selectable">{formatter.format(precio)} COP</span>
                             <div className="actions">
                                 <div><button><AiFillEdit size="18px"/> </button></div>
                                 <div><button><FaExchangeAlt size="18px"/> </button></div> 
