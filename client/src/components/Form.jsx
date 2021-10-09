@@ -1,39 +1,12 @@
 import React, { useRef } from 'react'
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import toast from 'react-hot-toast'
 import useForm from '../hooks/UseForm'
 import { FormS, Input, LabelContainer, Radio, Submit } from '../styled/components/Form';
-import { GET_PRODUCTS } from '../pages/products/Products';
+import useReducerContext from '../hooks/UseReducerContext';
+import { NEW_ORDER, NEW_PRODUCT } from '../GraphQL/mutations';
+import { GET_ORDERS, GET_PRODUCTS } from '../GraphQL/queries';
 
-const NEW_PRODUCT = gql`
-    mutation NuevoProductoMutation($input: NuevoProductoInput) {
-    nuevoProducto(input: $input) {
-        nombre
-        precio
-        disponible
-        id
-    }
-}
-`
-
-const NEW_ORDER = gql`
-    mutation NuevaOrdenMutation($input: NuevaOrdenInput) {
-    nuevaOrden(input: $input) {
-        id
-        usuario
-        mesa
-        orden {
-            cantidad
-            nombre
-            precio
-            disponible
-        }
-        estado
-        fecha
-        total
-    }
-}
-`
 
 const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
     const [ state, handleChange, reset ] = useForm();
@@ -52,7 +25,29 @@ const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
         }
     });
     
-    const [ nuevaOrden ] = useMutation(NEW_ORDER); 
+    const [ nuevaOrden ] = useMutation(NEW_ORDER, {
+        update(cache,{ data: { nuevaOrden }} ) {
+            const { obtenerOrdenes } = cache.readQuery({
+                query: GET_ORDERS,
+                variables: {
+                    input: 'PENDIENTE'
+                }
+            });
+
+            cache.writeQuery({
+                query: GET_ORDERS,
+                data: {
+                    obtenerOrdenes: [...obtenerOrdenes, nuevaOrden]
+                },
+                variables: {
+                    input: 'PENDIENTE'
+                }
+            })
+        }
+    });
+
+
+    const { state: stateContext, dispatch } = useReducerContext();
     const formRef = useRef()
 
     const handleSubmit = async (e) => {
@@ -65,21 +60,8 @@ const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
 
             if(submitFunction) {
                 //Orden de prueba
-                const orden = [
-                    {
-                        id: "123123123",
-                        nombre: "Burrito",
-                        cantidad: 1,
-                        precio: 2500
-                    },
-                    {
-                        id: "123123123AAAA",
-                        nombre: "HotDog",
-                        cantidad: 3,
-                        precio: 5000
-                    }
-                ]
-                const validation = products ? submitFunction( {...state, orden} ) : submitFunction( state ) 
+                const { order } = stateContext;
+                const validation = products ? submitFunction( {...state, order} ) : submitFunction( state ) 
 
                 if( validation ) {
                     //si hay productos es es true es orden, false producto
@@ -88,7 +70,7 @@ const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
                         const inputObj = {
                             usuario: nombreUsuario,
                             mesa: Number(mesa),
-                            orden
+                            orden: order
                         }
 
                         try {
@@ -102,6 +84,7 @@ const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
                                 success: 'Nuevo orden creada!',
                                 error: 'UPS... Hubo un error'
                             });
+                            dispatch({type: 'ORDER_RESET'});
                             resp.then( ({ data }) => console.log(data.nuevaOrden) );
                         } catch (err) {
                             console.log(err)

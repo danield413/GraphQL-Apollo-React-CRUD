@@ -1,22 +1,10 @@
 import { useQuery } from '@apollo/client'
-import gql from 'graphql-tag'
 import React from 'react'
 import styled from 'styled-components'
 import { GrStatusGoodSmall } from 'react-icons/gr'
 import Order from './Order'
 import Spinner from './Spinner'
-
-const GET_ORDERS = gql`
-    query Query($input: estadoOrden) {
-        obtenerOrdenes(input: $input) {
-            id
-            usuario
-            mesa
-            fecha
-            total
-        }
-    }
-`
+import { GET_ORDERS } from '../GraphQL/queries'
 
 const List = styled.div`
     height: 70vh;

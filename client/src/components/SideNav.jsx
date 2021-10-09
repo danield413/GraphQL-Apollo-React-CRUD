@@ -132,7 +132,7 @@ const SideNav = ({handleClose, isOpen}) => {
                         (location === pages.orders) && 
                         <>  
                             <li onClick={handleClose} ><Link to="/orders/new" className={`btn ${pathname === '/orders/new' && 'active'}`}>Nueva Orden</Link></li>
-                            <li onClick={handleClose} ><Link to="/orders" className={`btn ${pathname === '/orders' && 'active'}`}>Órdenes pendientes</Link></li>
+                            <li onClick={handleClose} ><Link to="/orders" className={`btn ${pathname === '/orders' && 'active'}`}>Todas las Órdenes</Link></li>
                             <li onClick={handleClose} ><Link to="/orders/search" className={`btn ${pathname === '/orders/search' && 'active'}`}>Buscar orden</Link></li>
                             <li onClick={handleClose} ><Link to="/" className={`btn ${pathname === '/' && 'active'}`}>Inicio</Link></li>
                         </>
