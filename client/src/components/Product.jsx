@@ -136,7 +136,7 @@ const Product = ({id, nombre, precio, disponible, newOrder = false}) => {
     }
  
     return (
-        <ProductC disponible={disponible}>
+        <ProductC disponible={disponible} className="animate__animated animate__fadeIn">
             <div className="header">
                 <div>
                     <h3 className="no-selectable">{nombre}</h3>

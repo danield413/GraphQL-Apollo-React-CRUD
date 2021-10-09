@@ -6,7 +6,7 @@ import Form from '../../components/Form'
 import FormWrapper from '../../components/FormWrapper'
 import Product from '../../components/Product'
 import Spinner from '../../components/Spinner'
-import { GET_PRODUCTS } from '../../GraphQL/queries'
+import { GET_ORDERS, GET_PRODUCTS } from '../../GraphQL/queries'
 import { validateOrder } from '../../utils/validateForm'
 
 const inputs = [
@@ -48,6 +48,13 @@ const NewOrder = () => {
         fetchPolicy:  "cache-first",
     });
 
+    const { loading:loadingTwo } = useQuery(GET_ORDERS, {
+        fetchPolicy: "cache-first",
+        variables: {
+            input: "PENDIENTE"
+        }
+    })
+
     const filterData = () => {
         if(data) {
             const prods = data.obtenerProductos.filter( prod => prod.disponible !== false)
@@ -63,9 +70,9 @@ const NewOrder = () => {
                 <title>Nueva Orden - ReactGraphQL</title>
             </Helmet>
             <FormWrapper isGrid={true}>
-                <Container>
+                <Container className="animate__animated animate__fadeIn">
                 {
-                    loading && 
+                    (loading && loadingTwo) &&
                     <Spinner />
                 }
                     <div className="list">

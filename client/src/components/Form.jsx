@@ -6,6 +6,7 @@ import { FormS, Input, LabelContainer, Radio, Submit } from '../styled/component
 import useReducerContext from '../hooks/UseReducerContext';
 import { NEW_ORDER, NEW_PRODUCT } from '../GraphQL/mutations';
 import { GET_ORDERS, GET_PRODUCTS } from '../GraphQL/queries';
+import client from '../config/apollo';
 
 
 const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
@@ -33,7 +34,7 @@ const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
                     input: 'PENDIENTE'
                 }
             });
-
+            
             cache.writeQuery({
                 query: GET_ORDERS,
                 data: {
@@ -75,6 +76,17 @@ const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
 
                         try {
                             formRef.current.reset();
+
+                            const resp = client.readQuery({
+                                query: GET_ORDERS,
+                                variables: {
+                                    input: 'PENDIENTE'
+                                }
+                            })
+                            if(!resp) {
+                                
+                            }
+
                             toast.promise(nuevaOrden({
                                 variables: {
                                     input: inputObj
@@ -120,7 +132,7 @@ const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
     }
 
     return (
-        <FormS onSubmit={handleSubmit} autoComplete="off" ref={formRef}>
+        <FormS onSubmit={handleSubmit} autoComplete="off" ref={formRef} className="animate__animated animate__fadeIn">
             <h2>{formTitle}</h2>
             {inputs.map( ({ id, type, placeholder, name, radioValues }) => {
                 if( type === 'radio' && radioValues.length > 1 ){

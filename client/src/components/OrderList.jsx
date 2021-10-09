@@ -55,11 +55,11 @@ const OrderList = ( {type, queryInput} ) => {
         variables: {
             input: queryInput
         },
-        fetchPolicy: 'cache-and-network'
+        fetchPolicy: "cache-first"
     })
 
     return (
-        <List type={queryInput}>
+        <List type={queryInput} className="animate__animated animate__fadeIn">
             <div className="header">
                 <div className="title">
                     <h2 className="no-selectable">{type}</h2>
@@ -80,7 +80,7 @@ const OrderList = ( {type, queryInput} ) => {
                         fecha={fecha}
                     />
                 ))}
-                {(data && data?.obtenerOrdenes.length ===0) && <span className="alert no-selectable">No hay órdenes</span> }
+                {(data && data?.obtenerOrdenes.length ===0) && <span className="alert no-selectable animate__animated animate__fadeIn animate_fadeOut">No hay órdenes</span> }
             </div>
         </List>
     )

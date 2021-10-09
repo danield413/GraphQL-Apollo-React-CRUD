@@ -39,7 +39,7 @@ const Div = styled.div`
 
 const Spinner = () => {
     return (
-        <Div />
+        <Div className="animate__animated animate__fadeIn animate__fadeOut"/>
     )
 }
 

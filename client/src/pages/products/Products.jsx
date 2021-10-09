@@ -30,7 +30,7 @@ const Products = () => {
                 loading && 
                 <Spinner />
             }
-            <Container>
+            <Container className="animate__animated animate__fadeIn">
                 { data && data.obtenerProductos.map( ({id, nombre, precio, disponible}) => (
                     <Product 
                         key={id} 
