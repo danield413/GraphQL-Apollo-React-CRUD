@@ -1,7 +1,8 @@
-import React from "react";
-import { AiFillEdit } from "react-icons/ai";
+import React, { useState } from "react";
+import { AiFillCaretLeft, AiFillCaretRight, AiFillEdit } from "react-icons/ai";
 import { FaExchangeAlt } from "react-icons/fa";
-import { GrAdd, GrStatusGoodSmall } from "react-icons/gr";
+import { GrStatusGoodSmall } from "react-icons/gr";
+import { HiOutlinePlus } from 'react-icons/hi'
 import toast from 'react-hot-toast'
 import styled from "styled-components";
 import useReducerContext from "../hooks/UseReducerContext";
@@ -47,6 +48,17 @@ const ProductC = styled.div`
         border-radius: 10px;
         display: flex;
         align-items: center;
+
+        .counter {
+            background-color: rgba(255, 255, 255, .3);
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+        }
 
         div button {
             position: relative;
@@ -94,12 +106,24 @@ const ProductC = styled.div`
 
 const Product = ({id, nombre, precio, disponible, newOrder = false}) => {
 
+    const [counter, setCounter] = useState(1);
+
+    const add = () => {
+        setCounter(counter + 1)
+    }
+
+    const substract = () => {
+        if(counter > 1){
+            setCounter(counter - 1)
+        }
+    }
+
     const { dispatch } = useReducerContext();
 
     const payload = {
         id,
         nombre,
-        cantidad: 1,
+        cantidad: counter,
         precio
     }
 
@@ -128,20 +152,32 @@ const Product = ({id, nombre, precio, disponible, newOrder = false}) => {
                     ? <>
                         <div>
                             <button onClick={handleAdd}>
-                                <GrAdd />
+                                <HiOutlinePlus color="#fff" size="18px"/>
                             </button>
                         </div>
-
+                        <div>
+                            <button onClick={substract}>
+                                <AiFillCaretLeft size="18px"/>
+                            </button>
+                        </div>
+                        <div className="counter">
+                            <span className="no-selectable">{counter}</span>
+                        </div>
+                        <div>
+                            <button onClick={add}>
+                                <AiFillCaretRight size="18px"/>
+                            </button>
+                        </div>
                     </> 
                     : <>
                         <div>
                             <button>
-                                <AiFillEdit size="18px" />{" "}
+                                <AiFillEdit size="18px"/>
                             </button>
                         </div>
                         <div>
                             <button>
-                                <FaExchangeAlt size="18px" />{" "}
+                                <FaExchangeAlt size="18px" />
                             </button>
                         </div>
                     </>

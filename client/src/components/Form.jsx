@@ -85,7 +85,6 @@ const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
                                 error: 'UPS... Hubo un error'
                             });
                             dispatch({type: 'ORDER_RESET'});
-                            resp.then( ({ data }) => console.log(data.nuevaOrden) );
                         } catch (err) {
                             console.log(err)
                         }
@@ -108,7 +107,6 @@ const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
                                 success: 'Nuevo producto añadido!',
                                 error: 'UPS... Hubo un error'
                             });
-                            resp.then( ({ data }) => console.log(data.nuevoProducto) );
                         } catch(err) {
                             console.log(err)
                         }

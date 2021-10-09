@@ -1,5 +1,5 @@
-import { useQuery, gql } from '@apollo/client'
 import React from 'react'
+import { useQuery } from '@apollo/client'
 import { Helmet } from 'react-helmet-async'
 import styled from 'styled-components'
 import Form from '../../components/Form'
