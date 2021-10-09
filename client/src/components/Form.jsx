@@ -75,7 +75,7 @@ const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
 
                         try {
                             formRef.current.reset();
-                            const resp = toast.promise(nuevaOrden({
+                            toast.promise(nuevaOrden({
                                 variables: {
                                     input: inputObj
                                 }
@@ -98,7 +98,7 @@ const Form = ( {inputs, formTitle, products, submitFunction = null} ) => {
                         }
                         try{
                             formRef.current.reset();
-                            const resp = toast.promise(nuevoProducto({
+                            toast.promise(nuevoProducto({
                                 variables: {
                                     input: inputObj
                                 }
