@@ -23,18 +23,6 @@ const GET_ORDERS = gql`
     }
 `
 
-// const GET_PENDING_ORDERS =  gql`
-//     query Query($input: "PENDIENTE") {
-//         obtenerOrdenes(input: $input) {
-//             id
-//             usuario
-//             mesa
-//             fecha
-//             total
-//         }
-//     }
-// `
-
 export {
     GET_ORDERS,
     GET_PRODUCTS

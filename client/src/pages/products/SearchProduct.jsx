@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
+import Search from '../../components/Search'
 
 const SearchProduct = () => {
     return (
@@ -7,7 +8,7 @@ const SearchProduct = () => {
             <Helmet>
                 <title>Buscar Producto - ReactGraphQL</title>
             </Helmet>
-            <h2>aaaaaaaaaa</h2>
+            <Search type="productos"/>
         </>
     )
 }

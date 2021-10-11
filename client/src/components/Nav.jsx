@@ -35,14 +35,14 @@ export const NavBar = styled.nav`
         display: flex;
         align-items: center;
         font-weight: 400;
-        transition: all 1s;
+        transition: .5s ease-in-out;
         font-family: 'GT-L';
 
         & svg {
             margin-right: .4rem;
         }
         :hover {
-            background-color: #00d9ff96;
+            background-color: #00d9ff75;
         }
     }
 
