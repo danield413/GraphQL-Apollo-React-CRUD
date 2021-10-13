@@ -102,4 +102,4 @@ const Order = ( {id, usuario, mesa, total, fecha} ) => {
     )
 }
 
-export default Order
+export default React.memo(Order);
