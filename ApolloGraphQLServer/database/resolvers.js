@@ -63,9 +63,10 @@ const resolvers = {
             }
         },
         cambiarProductoDisponible: async(_, {input}) => {
+
             try {
                 
-                const { id } = input;
+                const { id, disponible } = input;
 
                 let producto = await Producto.findById(id);
                 producto.disponible = disponible;

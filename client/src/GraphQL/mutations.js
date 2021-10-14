@@ -30,7 +30,19 @@ const NEW_ORDER = gql`
 }
 `
 
+const CHANGE_AVAILABLE = gql`
+    mutation CambiarProductoDisponibleMutation($input: CambiarEstadoDisponible) {
+    cambiarProductoDisponible(input: $input) {
+        id
+        nombre
+        precio
+        disponible
+    }
+}
+`
+
 export {
     NEW_ORDER,
-    NEW_PRODUCT
+    NEW_PRODUCT,
+    CHANGE_AVAILABLE
 }

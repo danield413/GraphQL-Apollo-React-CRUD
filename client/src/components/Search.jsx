@@ -148,7 +148,6 @@ const Search = ( {type} ) => {
 			  	{(data && data.obtenerOrdenes && search.length > 0) &&
 				data.obtenerOrdenes.map( ({id, usuario, mesa, total, fecha}) => {
 					const isInSearch = filter(usuario, search);
-					console.log(isInSearch);
 					if(isInSearch) {
 						return <Order
 									key={id}

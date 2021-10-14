@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
 import { AiFillCaretLeft, AiFillCaretRight, AiFillEdit } from "react-icons/ai";
 import { FaExchangeAlt } from "react-icons/fa";
 import { GrStatusGoodSmall } from "react-icons/gr";
@@ -7,6 +8,7 @@ import toast from 'react-hot-toast'
 import styled from "styled-components";
 import useReducerContext from "../hooks/UseReducerContext";
 import { formatter } from "../utils/cop";
+import { CHANGE_AVAILABLE } from "../GraphQL/mutations";
 
 const ProductC = styled.div`
     width: 90%;
@@ -107,6 +109,16 @@ const ProductC = styled.div`
 const Product = ({id, nombre, precio, disponible, newOrder = false}) => {
 
     const [counter, setCounter] = useState(1);
+    const { dispatch } = useReducerContext();
+    const [ cambiarEstadoDisponible ] = useMutation(CHANGE_AVAILABLE, {
+        variables: {
+            input: {
+                id,
+                disponible: !disponible
+            }
+        },
+        
+    });
 
     const add = () => {
         setCounter(counter + 1)
@@ -117,8 +129,6 @@ const Product = ({id, nombre, precio, disponible, newOrder = false}) => {
             setCounter(counter - 1)
         }
     }
-
-    const { dispatch } = useReducerContext();
 
     const payload = {
         id,
@@ -133,6 +143,18 @@ const Product = ({id, nombre, precio, disponible, newOrder = false}) => {
             payload
         });
         toast.success('Añadido a la orden actual');
+    }
+
+    const handleToggle = async () => {
+        try {
+            await toast.promise(cambiarEstadoDisponible(), {
+                loading: 'Cambiando disponibilidad',
+                success: `${nombre} ahora ${disponible ? 'no está disponible' : 'está disponible'}`,
+                error: 'UPS... Hubo un error'
+            })
+        } catch (error) {
+            console.log(error);
+        }
     }
  
     return (
@@ -176,7 +198,7 @@ const Product = ({id, nombre, precio, disponible, newOrder = false}) => {
                             </button>
                         </div>
                         <div>
-                            <button>
+                            <button onClick={handleToggle}>
                                 <FaExchangeAlt size="18px" />
                             </button>
                         </div>
