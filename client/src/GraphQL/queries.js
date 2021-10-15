@@ -23,7 +23,26 @@ const GET_ORDERS = gql`
     }
 `
 
+const GET_ORDER = gql`
+    query Query($input: ID) {
+    obtenerOrden(input: $input) {
+            usuario
+            mesa
+            orden {
+                nombre
+                precio
+                disponible
+                cantidad
+            }
+            estado
+            fecha
+            total
+        }
+    }
+`
+
 export {
     GET_ORDERS,
+    GET_ORDER,
     GET_PRODUCTS
 }

@@ -106,7 +106,7 @@ const ProductC = styled.div`
     }
 `
 
-const Product = ({id, nombre, precio, disponible, newOrder = false}) => {
+const Product = ({id, nombre, precio, disponible, newOrder = false, cantidad = null}) => {
 
     const [counter, setCounter] = useState(1);
     const { dispatch } = useReducerContext();
@@ -170,8 +170,8 @@ const Product = ({id, nombre, precio, disponible, newOrder = false}) => {
             <span className="no-selectable">{formatter.format(precio)} COP</span>
             <div className="actions">
                 {
-                    newOrder  
-                    ? <>
+                    newOrder 
+                    && <>
                         <div>
                             <button onClick={handleAdd}>
                                 <HiOutlinePlus color="#fff" size="18px"/>
@@ -191,7 +191,9 @@ const Product = ({id, nombre, precio, disponible, newOrder = false}) => {
                             </button>
                         </div>
                     </> 
-                    : <>
+                }
+                { (!newOrder && !cantidad) && 
+                    <>
                         <div>
                             <button>
                                 <AiFillEdit size="18px"/>
@@ -203,6 +205,11 @@ const Product = ({id, nombre, precio, disponible, newOrder = false}) => {
                             </button>
                         </div>
                     </>
+                }
+                { cantidad &&
+                    <div className="counter">
+                        <span className="no-selectable">{cantidad}</span>
+                    </div>
                 }
             </div>
         </ProductC>

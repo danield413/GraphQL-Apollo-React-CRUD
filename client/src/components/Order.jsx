@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { formatter } from '../utils/cop'
 import { AiFillEye } from 'react-icons/ai'
-import { DateTime } from 'luxon'
+import parseDate from '../utils/parseDate'
 
 const OrderC = styled.div`
     height: 8rem;
@@ -77,8 +77,7 @@ const OrderC = styled.div`
 
 const Order = ( {id, usuario, mesa, total, fecha} ) => {
 
-    const date = new Date(Number(fecha));
-    const fechaParseada = DateTime.fromJSDate(date).toLocaleString( {month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'});
+    
     return (
         <OrderC>
             <div className="header">
@@ -91,10 +90,10 @@ const Order = ( {id, usuario, mesa, total, fecha} ) => {
             </div>
             <div className="body">
                 <span className="no-selectable">Total {formatter.format(total)} COP</span>
-                <span id="fecha" className="no-selectable">{fechaParseada}</span>
+                <span id="fecha" className="no-selectable">{parseDate(fecha)}</span>
             </div>
             <div className="footer">
-                <Link to={`/product/${id}`}>
+                <Link to={`/orders/${id}`}>
                     <AiFillEye />
                 </Link>
             </div>
