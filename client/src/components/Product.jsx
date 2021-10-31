@@ -9,6 +9,7 @@ import styled from "styled-components";
 import useReducerContext from "../hooks/UseReducerContext";
 import { formatter } from "../utils/cop";
 import { CHANGE_AVAILABLE } from "../GraphQL/mutations";
+import ModalUpdate from "./ModalUpdate";
 
 const ProductC = styled.div`
     width: 90%;
@@ -109,6 +110,7 @@ const ProductC = styled.div`
 const Product = ({id, nombre, precio, disponible, newOrder = false, cantidad = null}) => {
 
     const [counter, setCounter] = useState(1);
+    const [isOpen, setIsOpen] = useState( false );
     const { dispatch } = useReducerContext();
     const [ cambiarEstadoDisponible ] = useMutation(CHANGE_AVAILABLE, {
         variables: {
@@ -156,63 +158,78 @@ const Product = ({id, nombre, precio, disponible, newOrder = false, cantidad = n
             console.log(error);
         }
     }
+
+    const toggleUpdate = () => {
+        setIsOpen(!isOpen);
+    }
  
     return (
-        <ProductC disponible={disponible} className="animate__animated animate__fadeIn">
-            <div className="header">
-                <div>
-                    <h3 className="no-selectable">{nombre}</h3>
-                </div>
-                <div className="status">
-                    <GrStatusGoodSmall />
-                </div>
-            </div>
-            <span className="no-selectable">{formatter.format(precio)} COP</span>
-            <div className="actions">
-                {
-                    newOrder 
-                    && <>
-                        <div>
-                            <button onClick={handleAdd}>
-                                <HiOutlinePlus color="#fff" size="18px"/>
-                            </button>
-                        </div>
-                        <div>
-                            <button onClick={substract}>
-                                <AiFillCaretLeft size="18px"/>
-                            </button>
-                        </div>
-                        <div className="counter">
-                            <span className="no-selectable">{counter}</span>
-                        </div>
-                        <div>
-                            <button onClick={add}>
-                                <AiFillCaretRight size="18px"/>
-                            </button>
-                        </div>
-                    </> 
-                }
-                { (!newOrder && !cantidad) && 
-                    <>
-                        <div>
-                            <button>
-                                <AiFillEdit size="18px"/>
-                            </button>
-                        </div>
-                        <div>
-                            <button onClick={handleToggle}>
-                                <FaExchangeAlt size="18px" />
-                            </button>
-                        </div>
-                    </>
-                }
-                { cantidad &&
-                    <div className="counter">
-                        <span className="no-selectable">{cantidad}</span>
+        <>
+            <ProductC disponible={disponible} className="animate__animated animate__fadeIn">
+                <div className="header">
+                    <div>
+                        <h3 className="no-selectable">{nombre}</h3>
                     </div>
-                }
-            </div>
-        </ProductC>
+                    <div className="status">
+                        <GrStatusGoodSmall />
+                    </div>
+                </div>
+                <span className="no-selectable">{formatter.format(precio)} COP</span>
+                <div className="actions">
+                    {
+                        newOrder 
+                        && <>
+                            <div>
+                                <button onClick={handleAdd}>
+                                    <HiOutlinePlus color="#fff" size="18px"/>
+                                </button>
+                            </div>
+                            <div>
+                                <button onClick={substract}>
+                                    <AiFillCaretLeft size="18px"/>
+                                </button>
+                            </div>
+                            <div className="counter">
+                                <span className="no-selectable">{counter}</span>
+                            </div>
+                            <div>
+                                <button onClick={add}>
+                                    <AiFillCaretRight size="18px"/>
+                                </button>
+                            </div>
+                        </> 
+                    }
+                    { (!newOrder && !cantidad) && 
+                        <>
+                            <div>
+                                <button onClick={toggleUpdate}>
+                                    <AiFillEdit size="18px"/>
+                                </button>
+                            </div>
+                            <div>
+                                <button onClick={handleToggle}>
+                                    <FaExchangeAlt size="18px" />
+                                </button>
+                            </div>
+                        </>
+                    }
+                    { cantidad &&
+                        <div className="counter">
+                            <span className="no-selectable">{cantidad}</span>
+                        </div>
+                    }
+                </div>
+            </ProductC>
+            {
+                (!newOrder && !cantidad) && <ModalUpdate 
+                                                isOpen={isOpen} 
+                                                setIsOpen={setIsOpen}
+                                                id={id}
+                                                nombre={nombre}
+                                                precio={precio}
+                                            />
+            }
+        </>
     );
 };
 
