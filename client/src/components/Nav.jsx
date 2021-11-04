@@ -27,10 +27,10 @@ export const NavBar = styled.nav`
 
     & ul li a {
         font-size: 1rem;
-        padding: 4px 10px;
+        padding: 8px 12px;
         background-color: rgba(255,255,255,.2);
         color: #fff;
-        border-radius: 5px;
+        border-radius: 10px;
         text-decoration: none;
         display: flex;
         align-items: center;

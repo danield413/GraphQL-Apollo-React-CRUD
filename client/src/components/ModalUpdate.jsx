@@ -46,6 +46,9 @@ const Form = styled.form`
         border: none;
         cursor: pointer;
         border-radius: 6px;
+        &:focus {
+            outline: 3px solid rgb(112, 0, 255, .4);
+        }
     }
 `
 

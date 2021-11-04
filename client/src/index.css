@@ -49,11 +49,6 @@
   align-items: center;
 }
 
-.outline-focus :focus{
-  outline: 2px solid white;
-  outline-offset: 1px;
-}
-
 .ReactModal__Overlay {
   opacity: 0;
   transition: opacity 200ms ease-in-out;
