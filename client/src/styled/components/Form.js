@@ -59,6 +59,10 @@ export const Submit = styled.input`
         background-color: #444444;
         cursor: not-allowed;
     }
+    :focus {
+        outline: 3px solid #0084ff;
+        transition: .2 ease-in-out;
+    }
 `
 
 export const LabelContainer = styled.div`

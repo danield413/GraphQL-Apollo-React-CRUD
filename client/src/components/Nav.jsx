@@ -51,19 +51,18 @@ export const NavBar = styled.nav`
     }
 
     & ul li button {
-       width: 3rem;
-       height: 3rem;
-       background-color: rgba(255,255,255,.2);
-       border: none;
-       border-radius: 50%;
-       display: flex;
-       justify-content: center;
-       align-items: center;
-       cursor: pointer;
-       transition: all 1.2s;
-        :hover {
-            transition: all 1.2s;
-            background-color:rgba(255,255,255,.7);
+        width: 3rem;
+        height: 3rem;
+        background-color: rgba(255,255,255,.2);
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: ease-in-out .2s;
+        :focus {
+            outline: 3px solid white;
         }
         
     }

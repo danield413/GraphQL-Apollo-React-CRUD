@@ -47,9 +47,13 @@ const SideBar = styled.aside`
                 right: 10px;
                 top: 10px;
                 cursor: pointer;
-                transition: all .2s;
+                transition: ease-in-out .2s;
+                outline: none;
                 :hover {
                     background-color: rgba(255,255,255,.5);
+                }
+                :focus {
+                    outline: 3px solid white;
                 }
             }
         }

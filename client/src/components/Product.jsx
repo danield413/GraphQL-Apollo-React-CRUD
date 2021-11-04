@@ -72,7 +72,7 @@ const ProductC = styled.div`
             background-color: rgba(255, 255, 255, .3);
             cursor: pointer;
             margin-right: 10px;
-            transition: .3s ease-in-out;
+            transition: .2s ease-in-out;
             display: grid;
             place-content: center;
             svg {
@@ -98,6 +98,9 @@ const ProductC = styled.div`
             &:hover{
                 background-color: #00d9ff75;
                 filter: drop-shadow(0px 0px 4px #00d9ff);
+            }
+            &:focus {
+                outline: 3px solid #00d9ff75;
             }
         }
     }
