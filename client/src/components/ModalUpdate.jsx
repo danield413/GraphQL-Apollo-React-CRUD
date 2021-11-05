@@ -23,6 +23,7 @@ const Form = styled.form`
         margin-bottom: 10px;
     }
     input[type="text"], input[type="number"] {
+        font-size: .9rem;
         width: 100%;
         border: 2px solid transparent;
         background-color: #b3b3b3;
@@ -39,6 +40,7 @@ const Form = styled.form`
         outline: none;
     }
     input[type="submit"] {
+        font-size: .9rem;
         width: 100%;
         background-color: #7000FF;
         color: white;
@@ -46,6 +48,8 @@ const Form = styled.form`
         border: none;
         cursor: pointer;
         border-radius: 6px;
+        transition: ease-in-out .2s;
+        outline: 3px solid transparent;
         &:focus {
             outline: 3px solid rgb(112, 0, 255, .4);
         }
@@ -86,7 +90,7 @@ const ModalUpdate = ( {isOpen, setIsOpen,id, nombre, precio} ) => {
             overlayClassName="overlay"
             className="content"
         >
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} autoComplete="off">
                 <h1 className="no-selectable">Actualizar</h1>
                 <label htmlFor="nombre" className="no-selectable">Producto</label>
                 <input type="text" id="nombre" name="nombre" onChange={handleChange} value={state.nombre}/>

@@ -22,6 +22,16 @@ const Main = styled.main`
             color: #eee;
         }
     }
+    @media screen and (max-width: 768px){
+        & div {
+            & h1,h3 {
+                margin-left: 20px;
+            }
+            & h1 {
+                font-size: 2rem;
+            }
+        }
+    }
 `;
 const Home = () => {
     return (

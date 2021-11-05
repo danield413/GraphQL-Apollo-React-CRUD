@@ -68,3 +68,19 @@
   width: 25%;
   border-radius: 20px;
 }
+
+@media screen and (max-width: 1000px) {
+  .content {
+    width:40%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .content {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .content {
+    width: 80%;
+  }
+}

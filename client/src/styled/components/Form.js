@@ -47,10 +47,11 @@ export const Submit = styled.input`
     border: none;
     border-radius: 5px;
     color: #fff;
-    transition: .2s ease-in-out;
+    transition: ease-in-out .2s;
     cursor: pointer;
     font-weight: bold;
     font-size: .9rem;
+    outline: 3px solid transparent;
 
     :hover {
         background-color: #006cd1;
@@ -60,8 +61,7 @@ export const Submit = styled.input`
         cursor: not-allowed;
     }
     :focus {
-        outline: 3px solid #0084ff;
-        transition: .2 ease-in-out;
+        outline: 3px solid rgba(0,108,208,.4);
     }
 `
 
@@ -106,5 +106,5 @@ margin-right: 10px;
         visibility: visible;
         border: 2px solid white;
         transition: .3s ease-in-out;
-}
+    }
 `

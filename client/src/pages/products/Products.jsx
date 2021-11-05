@@ -9,13 +9,24 @@ import { GET_PRODUCTS } from '../../GraphQL/queries.js'
 const Container = styled.div`
     margin-top: 10px;
     height: calc(100vh - 80px - 25%);
-    padding: 20px 0;
+    padding: 20px;
     background-color: #333333;
     border-radius: 16px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     row-gap: 20px;
     overflow: auto;
+
+    @media screen and (max-width: 1000px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: 768px) {
+        grid-template-columns: 1fr;
+        margin-top: 20px;
+        height: calc(90vh - 100px);
+        width: 100%;
+    }    
 `
 
 const Products = () => {

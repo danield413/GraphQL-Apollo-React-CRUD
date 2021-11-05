@@ -24,9 +24,15 @@ const ProductC = styled.div`
     .header {
         display: grid;
         grid-template-columns: 90% 10%;
-        h3 {
+        .name {
+            font-size: 1.1rem;
+            width: 90%;
+            height: 20px;
             color: #00afce;
             font-weight: bold;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
         .status {
             display: flex;
@@ -108,6 +114,21 @@ const ProductC = styled.div`
     &:hover {
         transform: scale(1.03);
     }
+
+    @media screen and (max-width: 768px){
+        height:  150px;
+        margin: 0;
+        width: 100%;
+        .header {
+            margin-bottom: 5px;
+            .name {
+                font-size: 1rem;
+            }
+        }
+        span {
+            font-size: .9rem;
+        }
+    }
 `
 
 const Product = ({id, nombre, precio, disponible, newOrder = false, cantidad = null}) => {
@@ -170,8 +191,8 @@ const Product = ({id, nombre, precio, disponible, newOrder = false, cantidad = n
         <>
             <ProductC disponible={disponible} className="animate__animated animate__fadeIn">
                 <div className="header">
-                    <div>
-                        <h3 className="no-selectable">{nombre}</h3>
+                    <div className="name no-selectable">
+                        {nombre}
                     </div>
                     <div className="status">
                         <GrStatusGoodSmall />

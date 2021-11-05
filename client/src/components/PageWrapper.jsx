@@ -29,7 +29,21 @@ const Main = styled.main`
                 color: white;
             }
         }
+    }
 
+    @media screen and (max-width: 768px){
+        padding: 10px 15px;
+        .header {
+            grid-template-columns: 60% 40%;
+            h1 {
+                font-size: 2.2rem;
+            }
+            .header-item {
+                span {
+                    font-size: .9rem;
+                }
+            }
+        }
     }
 
 `

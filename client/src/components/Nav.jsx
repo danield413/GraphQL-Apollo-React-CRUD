@@ -66,7 +66,11 @@ export const NavBar = styled.nav`
         }
         
     }
-
+    @media screen and (max-width: 768px){
+        & ul li:first-child {
+            margin-left: 20px;
+        }
+    }
 `;
 
 

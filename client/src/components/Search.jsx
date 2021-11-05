@@ -53,6 +53,30 @@ const Container = styled.div`
 			grid-column: 1/4;
 		}
 	}
+	@media screen and (max-width: 1000px) {
+		.filtered {
+			padding: 20px;
+			grid-template-columns: repeat(2, 1fr);
+			.alert {
+				width: 100%;
+				font-size: .9rem;
+				text-align: center;
+			}
+			.no-grid {
+				grid-column: 1/3;
+			}
+		}
+	}
+	@media screen and (max-width: 768px) {
+		padding: 0 20px;
+		.filtered {
+			grid-template-columns: 1fr;
+			height: calc(90vh - 100px);
+			.no-grid {
+				grid-column: 1/2;
+			}
+		}
+	}
 `
 const Div = styled.div`
 	padding: 1rem 0;
@@ -78,7 +102,16 @@ const Div = styled.div`
 			border: 2px solid #0084ff;
 		}
 	}
-  
+	@media screen and (max-width: 1000px) {
+		input {
+			width: 80%;
+		}
+	}
+	@media screen and (max-width: 768px) {
+		input {
+			width: 100%;
+		}
+	}
 `
 
 const Search = ( {type} ) => {
